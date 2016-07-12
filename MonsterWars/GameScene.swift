@@ -28,27 +28,43 @@ class GameScene: SKScene {
   
   // Game over detection
   var gameOver = false
+  var entityManager: EntityManager!
   
   override func didMove(to view: SKView) {
-  
     print("scene size: \(size)")
     
+    startBackgroundMusic()
+    addBackground()
+    addEntityButtons()
+    addCoinLables()
+
+    entityManager = EntityManager(scene: self)
+    addCastleEntities(to: entityManager)
+  }
+  
+  
+  // MARK: - Setup
+  func startBackgroundMusic() {
     // Start background music
     let bgMusic = SKAudioNode(fileNamed: "Latin_Industries.mp3")
     bgMusic.autoplayLooped = true
     addChild(bgMusic)
-    
+  }
+  
+  func addBackground() {
     // Add background
     let background = SKSpriteNode(imageNamed: "background")
     background.position = CGPoint(x: size.width/2, y: size.height/2)
     background.zPosition = -1
     addChild(background)
-       
+  }
+  
+  func addEntityButtons() {
     // Add quirk button
     quirkButton = ButtonNode(iconName: "quirk1", text: "10", onButtonPress: quirkPressed)
     quirkButton.position = CGPoint(x: size.width * 0.25, y: margin + quirkButton.size.height / 2)
     addChild(quirkButton)
-
+    
     // Add zap button
     zapButton = ButtonNode(iconName: "zap1", text: "25", onButtonPress: zapPressed)
     zapButton.position = CGPoint(x: size.width * 0.5, y: margin + zapButton.size.height / 2)
@@ -58,7 +74,9 @@ class GameScene: SKScene {
     munchButton = ButtonNode(iconName: "munch1", text: "50", onButtonPress: munchPressed)
     munchButton.position = CGPoint(x: size.width * 0.75, y: margin + munchButton.size.height / 2)
     addChild(munchButton)
-    
+  }
+  
+  func addCoinLables() {
     // Add coin 1 indicator
     let coin1 = SKSpriteNode(imageNamed: "coin")
     coin1.position = CGPoint(x: margin + coin1.size.width/2, y: size.height - margin - coin1.size.height/2)
@@ -84,9 +102,26 @@ class GameScene: SKScene {
     coin2Label.verticalAlignmentMode = .center
     coin2Label.text = "10"
     self.addChild(coin2Label)
-    
   }
   
+  
+  // MARK: - Entity Management
+  func addCastleEntities(to manager: EntityManager) {
+    let humanCastle = Castle(imageName: "castle1_atk")
+    if let spriteComponent: SpriteComponent = humanCastle.componentForClass(SpriteComponent.self) as? SpriteComponent {
+      spriteComponent.node.position = CGPoint(x: spriteComponent.node.size.width/2, y: size.height/2)
+    }
+    manager.add(entity: humanCastle)
+    
+    let aiCastle = Castle(imageName: "castle2_atk")
+    if let spriteComponent: SpriteComponent = aiCastle.componentForClass(SpriteComponent.self) as SpriteComponent {
+      spriteComponent.node.position = CGPoint(x: size.width - spriteComponent.node.size.width/2, y: size.height/2)
+    }
+    manager.add(entity: aiCastle)
+  }
+  
+  
+  // MARK: - Button Closures
   func quirkPressed() {
     print("Quirk pressed!")    
   }
@@ -99,6 +134,8 @@ class GameScene: SKScene {
     print("Munch pressed!")
   }
   
+  
+  // MARK: - Touches Override
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     guard let touch = touches.first else {
       return
@@ -115,6 +152,8 @@ class GameScene: SKScene {
     
   }
   
+  
+  // MARK: - Restart Menu
   func showRestartMenu(_ won: Bool) {
     
     if gameOver {
@@ -140,7 +179,8 @@ class GameScene: SKScene {
     
   }
   
- 
+  
+  // MARK: - Update
   override func update(_ currentTime: TimeInterval) {
 
     let deltaTime = currentTime - lastUpdateTimeInterval

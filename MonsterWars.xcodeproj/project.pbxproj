@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		144B61381D35627D0086BEF4 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B61371D35627D0086BEF4 /* SpriteComponent.swift */; };
+		144B613B1D3565FB0086BEF4 /* Castle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B613A1D3565FB0086BEF4 /* Castle.swift */; };
+		144B613D1D3566710086BEF4 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B613C1D3566710086BEF4 /* EntityManager.swift */; };
 		352F995B1BE91323001D1D3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F995A1BE91323001D1D3E /* AppDelegate.swift */; };
 		352F995F1BE91323001D1D3E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F995E1BE91323001D1D3E /* GameScene.swift */; };
 		352F99611BE91323001D1D3E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F99601BE91323001D1D3E /* GameViewController.swift */; };
@@ -32,6 +35,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		144B61371D35627D0086BEF4 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		144B613A1D3565FB0086BEF4 /* Castle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Castle.swift; sourceTree = "<group>"; };
+		144B613C1D3566710086BEF4 /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
 		352F99571BE91323001D1D3E /* MonsterWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonsterWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		352F995A1BE91323001D1D3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		352F995E1BE91323001D1D3E /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -81,6 +87,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		144B61361D3562640086BEF4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				144B61371D35627D0086BEF4 /* SpriteComponent.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		144B61391D3565E20086BEF4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				144B613A1D3565FB0086BEF4 /* Castle.swift */,
+				144B613C1D3566710086BEF4 /* EntityManager.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
 		352F994E1BE91323001D1D3E = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +123,8 @@
 		352F99591BE91323001D1D3E /* MonsterWars */ = {
 			isa = PBXGroup;
 			children = (
+				144B61391D3565E20086BEF4 /* Entities */,
+				144B61361D3562640086BEF4 /* Components */,
 				352F99A91BE95403001D1D3E /* Helpers */,
 				352F995A1BE91323001D1D3E /* AppDelegate.swift */,
 				352F995E1BE91323001D1D3E /* GameScene.swift */,
@@ -166,7 +191,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Razeware LLC";
 				TargetAttributes = {
 					352F99561BE91323001D1D3E = {
@@ -223,11 +248,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144B613D1D3566710086BEF4 /* EntityManager.swift in Sources */,
 				352F99AB1BE95410001D1D3E /* SoundManager.swift in Sources */,
 				352F995F1BE91323001D1D3E /* GameScene.swift in Sources */,
+				144B61381D35627D0086BEF4 /* SpriteComponent.swift in Sources */,
 				352F998C1BE919C5001D1D3E /* ButtonNode.swift in Sources */,
 				352F999A1BE928AF001D1D3E /* MyUtils.swift in Sources */,
 				352F99611BE91323001D1D3E /* GameViewController.swift in Sources */,
+				144B613B1D3565FB0086BEF4 /* Castle.swift in Sources */,
 				352F99B31BE97B48001D1D3E /* Constants.swift in Sources */,
 				352F995B1BE91323001D1D3E /* AppDelegate.swift in Sources */,
 			);
@@ -356,6 +384,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.MonsterWars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

@@ -107,14 +107,14 @@ class GameScene: SKScene {
   
   // MARK: - Entity Management
   func addCastleEntities(to manager: EntityManager) {
-    let humanCastle = Castle(imageName: "castle1_atk")
-    if let spriteComponent: SpriteComponent = humanCastle.componentForClass(SpriteComponent.self) as? SpriteComponent {
+    let humanCastle: Castle = Castle(imageName: "castle1_atk", team: .Team1)
+    if let spriteComponent: SpriteComponent = humanCastle.componentForClass(SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: spriteComponent.node.size.width/2, y: size.height/2)
     }
     manager.add(entity: humanCastle)
     
-    let aiCastle = Castle(imageName: "castle2_atk")
-    if let spriteComponent: SpriteComponent = aiCastle.componentForClass(SpriteComponent.self) as SpriteComponent {
+    let aiCastle: Castle = Castle(imageName: "castle2_atk", team: .Team2)
+    if let spriteComponent: SpriteComponent = aiCastle.componentForClass(SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: size.width - spriteComponent.node.size.width/2, y: size.height/2)
     }
     manager.add(entity: aiCastle)
@@ -123,7 +123,8 @@ class GameScene: SKScene {
   
   // MARK: - Button Closures
   func quirkPressed() {
-    print("Quirk pressed!")    
+    print("Quirk pressed!")
+    entityManager.spawnQuirk(team: .Team1)
   }
   
   func zapPressed() {
@@ -156,9 +157,7 @@ class GameScene: SKScene {
   // MARK: - Restart Menu
   func showRestartMenu(_ won: Bool) {
     
-    if gameOver {
-      return;
-    }
+    if gameOver { return }
     gameOver = true
     
     let message = won ? "You win" : "You lose"
@@ -182,13 +181,21 @@ class GameScene: SKScene {
   
   // MARK: - Update
   override func update(_ currentTime: TimeInterval) {
-
     let deltaTime = currentTime - lastUpdateTimeInterval
     lastUpdateTimeInterval = currentTime
     
-    if gameOver {
-      return
+    if gameOver { return }
+   
+    entityManager.update(deltaTime: deltaTime)
+    
+    if let human = entityManager.castle(for: .Team1),
+      humanCastle = human.componentForClass(CastleComponent.self) {
+      coin1Label.text = "\(humanCastle.coins)"
     }
     
+    if let ai = entityManager.castle(for: .Team2),
+      aiCastle = ai.componentForClass(CastleComponent.self) {
+      coin2Label.text = "\(aiCastle.coins)"
+    }
   }
 }

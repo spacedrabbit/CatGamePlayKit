@@ -1,5 +1,5 @@
 //
-//  Castle.swift
+//  Quirk.swift
 //  MonsterWars
 //
 //  Created by Louis Tur on 7/12/16.
@@ -10,17 +10,17 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class Castle: GKEntity {
+class Quirk: GKEntity {
   
-  init(imageName: String, team: Team) {
+  init(team: Team) {
     super.init()
-    let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
+    let texture = SKTexture(imageNamed: "quirk\(team.rawValue)")
+    let spriteComponent = SpriteComponent(texture: texture)
     addComponent(spriteComponent)
     addComponent(TeamComponent(team: team))
-    addComponent(CastleComponent())
   }
   
   required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+    fatalError("init(coder:) is not implemented")
   }
 }

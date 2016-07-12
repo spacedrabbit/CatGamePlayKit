@@ -8,6 +8,8 @@
 
 import Foundation
 
-let costQuirk = 10
-let costZap = 25
-let costMunch = 50
+internal struct Cost {
+  static let quirk = 10
+  static let zap = 25
+  static let munch = 50
+}

@@ -10,6 +10,9 @@
 		144B61381D35627D0086BEF4 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B61371D35627D0086BEF4 /* SpriteComponent.swift */; };
 		144B613B1D3565FB0086BEF4 /* Castle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B613A1D3565FB0086BEF4 /* Castle.swift */; };
 		144B613D1D3566710086BEF4 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B613C1D3566710086BEF4 /* EntityManager.swift */; };
+		144B613F1D356A350086BEF4 /* TeamComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B613E1D356A350086BEF4 /* TeamComponent.swift */; };
+		144B61411D356B5E0086BEF4 /* CastleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B61401D356B5E0086BEF4 /* CastleComponent.swift */; };
+		144B61431D356FD70086BEF4 /* Quirk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B61421D356FD70086BEF4 /* Quirk.swift */; };
 		352F995B1BE91323001D1D3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F995A1BE91323001D1D3E /* AppDelegate.swift */; };
 		352F995F1BE91323001D1D3E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F995E1BE91323001D1D3E /* GameScene.swift */; };
 		352F99611BE91323001D1D3E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F99601BE91323001D1D3E /* GameViewController.swift */; };
@@ -38,6 +41,9 @@
 		144B61371D35627D0086BEF4 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		144B613A1D3565FB0086BEF4 /* Castle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Castle.swift; sourceTree = "<group>"; };
 		144B613C1D3566710086BEF4 /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		144B613E1D356A350086BEF4 /* TeamComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamComponent.swift; sourceTree = "<group>"; };
+		144B61401D356B5E0086BEF4 /* CastleComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastleComponent.swift; sourceTree = "<group>"; };
+		144B61421D356FD70086BEF4 /* Quirk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quirk.swift; sourceTree = "<group>"; };
 		352F99571BE91323001D1D3E /* MonsterWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonsterWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		352F995A1BE91323001D1D3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		352F995E1BE91323001D1D3E /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -91,6 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				144B61371D35627D0086BEF4 /* SpriteComponent.swift */,
+				144B613E1D356A350086BEF4 /* TeamComponent.swift */,
+				144B61401D356B5E0086BEF4 /* CastleComponent.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -98,8 +106,9 @@
 		144B61391D3565E20086BEF4 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				144B613A1D3565FB0086BEF4 /* Castle.swift */,
 				144B613C1D3566710086BEF4 /* EntityManager.swift */,
+				144B613A1D3565FB0086BEF4 /* Castle.swift */,
+				144B61421D356FD70086BEF4 /* Quirk.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -249,11 +258,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				144B613D1D3566710086BEF4 /* EntityManager.swift in Sources */,
+				144B613F1D356A350086BEF4 /* TeamComponent.swift in Sources */,
 				352F99AB1BE95410001D1D3E /* SoundManager.swift in Sources */,
 				352F995F1BE91323001D1D3E /* GameScene.swift in Sources */,
 				144B61381D35627D0086BEF4 /* SpriteComponent.swift in Sources */,
 				352F998C1BE919C5001D1D3E /* ButtonNode.swift in Sources */,
 				352F999A1BE928AF001D1D3E /* MyUtils.swift in Sources */,
+				144B61411D356B5E0086BEF4 /* CastleComponent.swift in Sources */,
+				144B61431D356FD70086BEF4 /* Quirk.swift in Sources */,
 				352F99611BE91323001D1D3E /* GameViewController.swift in Sources */,
 				144B613B1D3565FB0086BEF4 /* Castle.swift in Sources */,
 				352F99B31BE97B48001D1D3E /* Constants.swift in Sources */,

@@ -18,7 +18,6 @@ class SpriteComponent: GKComponent {
   }
   
   required init?(coder aDecoder: NSCoder) {
-    node = aDecoder.decodeObject(forKey: "shut up compiler") as! SKSpriteNode
-    super.init(coder: aDecoder)
+    fatalError("init(coder:) has not been implemented")
   }
 }

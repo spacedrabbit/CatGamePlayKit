@@ -69,6 +69,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		144B61351D3560C20086BEF4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				352F99701BE9142D001D1D3E /* Sounds */,
+				352F99621BE91323001D1D3E /* Main.storyboard */,
+				352F99651BE91323001D1D3E /* Assets.xcassets */,
+				352F99671BE91323001D1D3E /* LaunchScreen.storyboard */,
+				352F996A1BE91323001D1D3E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		352F994E1BE91323001D1D3E = {
 			isa = PBXGroup;
 			children = (
@@ -89,14 +101,10 @@
 			isa = PBXGroup;
 			children = (
 				352F99A91BE95403001D1D3E /* Helpers */,
-				352F99701BE9142D001D1D3E /* Sounds */,
 				352F995A1BE91323001D1D3E /* AppDelegate.swift */,
 				352F995E1BE91323001D1D3E /* GameScene.swift */,
 				352F99601BE91323001D1D3E /* GameViewController.swift */,
-				352F99621BE91323001D1D3E /* Main.storyboard */,
-				352F99651BE91323001D1D3E /* Assets.xcassets */,
-				352F99671BE91323001D1D3E /* LaunchScreen.storyboard */,
-				352F996A1BE91323001D1D3E /* Info.plist */,
+				144B61351D3560C20086BEF4 /* Supporting Files */,
 			);
 			path = MonsterWars;
 			sourceTree = "<group>";
@@ -163,6 +171,7 @@
 				TargetAttributes = {
 					352F99561BE91323001D1D3E = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -335,6 +344,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.MonsterWars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -346,6 +356,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.MonsterWars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

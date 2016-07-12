@@ -18,7 +18,7 @@ class ButtonNode : SKSpriteNode {
     self.onButtonPress = onButtonPress
    
     let texture = SKTexture(imageNamed: "button")
-    super.init(texture: texture, color: SKColor.whiteColor(), size: texture.size())
+    super.init(texture: texture, color: SKColor.white(), size: texture.size())
     
     let icon = SKSpriteNode(imageNamed: iconName)
     icon.position = CGPoint(x: -size.width * 0.25, y: 0)
@@ -27,18 +27,18 @@ class ButtonNode : SKSpriteNode {
     
     let label = SKLabelNode(fontNamed: "Courier-Bold")
     label.fontSize = 50
-    label.fontColor = SKColor.blackColor()
+    label.fontColor = SKColor.black()
     label.position = CGPoint(x: size.width * 0.25, y: 0)
     label.zPosition = 1
-    label.verticalAlignmentMode = .Center
+    label.verticalAlignmentMode = .center
     label.text = text
     self.addChild(label)
     
-    userInteractionEnabled = true
+    isUserInteractionEnabled = true
 
   }
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     onButtonPress()
   }
 

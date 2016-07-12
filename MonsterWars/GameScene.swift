@@ -24,12 +24,12 @@ class GameScene: SKScene {
   let coin2Label = SKLabelNode(fontNamed: "Courier-Bold")
   
   // Update time
-  var lastUpdateTimeInterval: NSTimeInterval = 0
+  var lastUpdateTimeInterval: TimeInterval = 0
   
   // Game over detection
   var gameOver = false
   
-  override func didMoveToView(view: SKView) {
+  override func didMove(to view: SKView) {
   
     print("scene size: \(size)")
     
@@ -64,11 +64,11 @@ class GameScene: SKScene {
     coin1.position = CGPoint(x: margin + coin1.size.width/2, y: size.height - margin - coin1.size.height/2)
     addChild(coin1)
     coin1Label.fontSize = 50
-    coin1Label.fontColor = SKColor.blackColor()
+    coin1Label.fontColor = SKColor.black()
     coin1Label.position = CGPoint(x: coin1.position.x + coin1.size.width/2 + margin, y: coin1.position.y)
     coin1Label.zPosition = 1
-    coin1Label.horizontalAlignmentMode = .Left
-    coin1Label.verticalAlignmentMode = .Center
+    coin1Label.horizontalAlignmentMode = .left
+    coin1Label.verticalAlignmentMode = .center
     coin1Label.text = "10"
     self.addChild(coin1Label)
     
@@ -77,11 +77,11 @@ class GameScene: SKScene {
     coin2.position = CGPoint(x: size.width - margin - coin1.size.width/2, y: size.height - margin - coin1.size.height/2)
     addChild(coin2)
     coin2Label.fontSize = 50
-    coin2Label.fontColor = SKColor.blackColor()
+    coin2Label.fontColor = SKColor.black()
     coin2Label.position = CGPoint(x: coin2.position.x - coin2.size.width/2 - margin, y: coin1.position.y)
     coin2Label.zPosition = 1
-    coin2Label.horizontalAlignmentMode = .Right
-    coin2Label.verticalAlignmentMode = .Center
+    coin2Label.horizontalAlignmentMode = .right
+    coin2Label.verticalAlignmentMode = .center
     coin2Label.text = "10"
     self.addChild(coin2Label)
     
@@ -99,23 +99,23 @@ class GameScene: SKScene {
     print("Munch pressed!")
   }
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     guard let touch = touches.first else {
       return
     }
-    let touchLocation = touch.locationInNode(self)
+    let touchLocation = touch.location(in: self)
     print("\(touchLocation)")
     
     if gameOver {
       let newScene = GameScene(size: size)
       newScene.scaleMode = scaleMode
-      view?.presentScene(newScene, transition: SKTransition.flipHorizontalWithDuration(0.5))
+      view?.presentScene(newScene, transition: SKTransition.flipHorizontal(withDuration: 0.5))
       return
     }
     
   }
   
-  func showRestartMenu(won: Bool) {
+  func showRestartMenu(_ won: Bool) {
     
     if gameOver {
       return;
@@ -126,22 +126,22 @@ class GameScene: SKScene {
     
     let label = SKLabelNode(fontNamed: "Courier-Bold")
     label.fontSize = 100
-    label.fontColor = SKColor.blackColor()
+    label.fontColor = SKColor.black()
     label.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
     label.zPosition = 1
-    label.verticalAlignmentMode = .Center
+    label.verticalAlignmentMode = .center
     label.text = message
     label.setScale(0)
     addChild(label)
     
-    let scaleAction = SKAction.scaleTo(1.0, duration: 0.5)
-    scaleAction.timingMode = SKActionTimingMode.EaseInEaseOut
-    label.runAction(scaleAction)
+    let scaleAction = SKAction.scale(to: 1.0, duration: 0.5)
+    scaleAction.timingMode = SKActionTimingMode.easeInEaseOut
+    label.run(scaleAction)
     
   }
   
  
-  override func update(currentTime: CFTimeInterval) {
+  override func update(_ currentTime: TimeInterval) {
 
     let deltaTime = currentTime - lastUpdateTimeInterval
     lastUpdateTimeInterval = currentTime

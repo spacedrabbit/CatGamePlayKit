@@ -28,7 +28,7 @@ func + (left: CGPoint, right: CGPoint) -> CGPoint {
   return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }
 
-func += (inout left: CGPoint, right: CGPoint) {
+func += (left: inout CGPoint, right: CGPoint) {
   left = left + right
 }
 
@@ -36,7 +36,7 @@ func - (left: CGPoint, right: CGPoint) -> CGPoint {
   return CGPoint(x: left.x - right.x, y: left.y - right.y)
 }
 
-func -= (inout left: CGPoint, right: CGPoint) {
+func -= (left: inout CGPoint, right: CGPoint) {
   left = left - right
 }
 
@@ -44,7 +44,7 @@ func * (left: CGPoint, right: CGPoint) -> CGPoint {
   return CGPoint(x: left.x * right.x, y: left.y * right.y)
 }
 
-func *= (inout left: CGPoint, right: CGPoint) {
+func *= (left: inout CGPoint, right: CGPoint) {
   left = left * right
 }
 
@@ -52,7 +52,7 @@ func * (point: CGPoint, scalar: CGFloat) -> CGPoint {
   return CGPoint(x: point.x * scalar, y: point.y * scalar)
 }
 
-func *= (inout point: CGPoint, scalar: CGFloat) {
+func *= (point: inout CGPoint, scalar: CGFloat) {
   point = point * scalar
 }
 
@@ -60,7 +60,7 @@ func / (left: CGPoint, right: CGPoint) -> CGPoint {
   return CGPoint(x: left.x / right.x, y: left.y / right.y)
 }
 
-func /= (inout left: CGPoint, right: CGPoint) {
+func /= (left: inout CGPoint, right: CGPoint) {
   left = left / right
 }
 
@@ -68,7 +68,7 @@ func / (point: CGPoint, scalar: CGFloat) -> CGPoint {
   return CGPoint(x: point.x / scalar, y: point.y / scalar)
 }
 
-func /= (inout point: CGPoint, scalar: CGFloat) {
+func /= (point: inout CGPoint, scalar: CGFloat) {
   point = point / scalar
 }
 
@@ -99,10 +99,10 @@ extension CGPoint {
 
 let π = CGFloat(M_PI)
 
-func shortestAngleBetween(angle1: CGFloat, 
+func shortestAngleBetween(_ angle1: CGFloat, 
                           angle2: CGFloat) -> CGFloat {
   let twoπ = π * 2.0
-  var angle = (angle2 - angle1) % twoπ
+  var angle = (angle2 - angle1).truncatingRemainder(dividingBy: twoπ)
   if (angle >= π) {
     angle = angle - twoπ
   }
@@ -123,7 +123,7 @@ extension CGFloat {
     return CGFloat(Float(arc4random()) / Float(UInt32.max))
   }
 
-  static func random(min min: CGFloat, max: CGFloat) -> CGFloat {
+  static func random(min: CGFloat, max: CGFloat) -> CGFloat {
     assert(min < max)
     return CGFloat.random() * (max - min) + min
   }

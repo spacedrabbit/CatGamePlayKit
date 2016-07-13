@@ -211,6 +211,8 @@
 				TargetAttributes = {
 					352F99561BE91323001D1D3E = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 3457AE227Q;
+						DevelopmentTeamName = "Louis Tur";
 						LastSwiftMigration = 0800;
 					};
 				};

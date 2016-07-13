@@ -97,13 +97,13 @@ class GameScene: SKScene {
   
   // MARK: - Entity Management
   func addCastleEntities(to manager: EntityManager) {
-    let humanCastle: Castle = Castle(imageName: "castle1_atk", team: .Team1)
+    let humanCastle: Castle = Castle(imageName: "castle1_atk", team: .Team1, entityManager: entityManager)
     if let spriteComponent: SpriteComponent = humanCastle.componentForClass(SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: spriteComponent.node.size.width/2, y: size.height/2)
     }
     manager.add(entity: humanCastle)
     
-    let aiCastle: Castle = Castle(imageName: "castle2_atk", team: .Team2)
+    let aiCastle: Castle = Castle(imageName: "castle2_atk", team: .Team2, entityManager: entityManager)
     if let spriteComponent: SpriteComponent = aiCastle.componentForClass(SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: size.width - spriteComponent.node.size.width/2, y: size.height/2)
     }

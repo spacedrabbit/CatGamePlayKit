@@ -18,7 +18,8 @@ class EntityManager {
   
   lazy var componentSystems: [GKComponentSystem] = {
     let castleSystem = GKComponentSystem(componentClass: CastleComponent.self)
-    return [castleSystem]
+    let moveSystem = GKComponentSystem(componentClass: MoveComponent.self)
+    return [castleSystem, moveSystem]
   }()
 
   init(scene: SKScene) {
@@ -77,7 +78,7 @@ class EntityManager {
     teamCastleComponent.coins -= Cost.quirk
     scene.run(SoundManager.sharedInstance.soundSpawn)
     
-    let monster = Quirk(team: team)
+    let monster = Quirk(team: team, entityManager: self)
     if let spriteComponent = monster.componentForClass(SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: teamSpriteComponent.node.position.x, y: CGFloat.random(min: scene.size.height * 0.25, max: scene.size.height * 0.75))
       spriteComponent.node.zPosition = 2

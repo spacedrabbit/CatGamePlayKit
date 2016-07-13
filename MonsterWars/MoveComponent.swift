@@ -61,19 +61,20 @@ class MoveComponent : GKAgent2D, GKAgentDelegate {
     else { return }
 
     let alliedMoveComponents = entityManager.moveComponents(for: teamComponent.team)
-    behavior = MoveBehavior(targetSpeed: maxSpeed, seek: enemyMoveComponent, avoid: alliedMoveComponents)
+    self.behavior = MoveBehavior(targetSpeed: maxSpeed, seek: enemyMoveComponent, avoid: alliedMoveComponents)
   }
   
   // MARK: - GKAgentDelegate
-  private func agentWillUpdate(agent: GKAgent) {
+  @objc func agentWillUpdate(_ agent: GKAgent) {
     guard let spriteComponent = entity?.componentForClass(SpriteComponent.self) else {
       return
     }
     
     position = float2(spriteComponent.node.position)
+    
   }
   
-  private func agentDidUpdate(agent: GKAgent) {
+  @objc func agentDidUpdate(_ agent: GKAgent) {
     guard let spriteComponent = entity?.componentForClass(SpriteComponent.self) else {
       return
     }

@@ -10,29 +10,19 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-
-  // Constants
   let margin = CGFloat(30)
- 
-  // Buttons
+
   var quirkButton: ButtonNode!
   var zapButton: ButtonNode!
   var munchButton: ButtonNode!
-
-  // Labels
   let coin1Label = SKLabelNode(fontNamed: "Courier-Bold")
   let coin2Label = SKLabelNode(fontNamed: "Courier-Bold")
   
-  // Update time
   var lastUpdateTimeInterval: TimeInterval = 0
-  
-  // Game over detection
   var gameOver = false
   var entityManager: EntityManager!
   
   override func didMove(to view: SKView) {
-    print("scene size: \(size)")
-    
     startBackgroundMusic()
     addBackground()
     addEntityButtons()

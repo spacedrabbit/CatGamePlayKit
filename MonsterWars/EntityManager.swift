@@ -34,7 +34,7 @@ class EntityManager {
       scene.addChild(spriteNode)
     }
     
-    for componentSystem in componentSystems {
+    for componentSystem in self.componentSystems {
       componentSystem.addComponent(with: entity)
     }
   }
@@ -84,6 +84,30 @@ class EntityManager {
     }
     
     self.add(entity: monster)
+  }
+  
+  
+  // MARK: - Entity Locating Helpers
+  func entities(for team: Team) -> [GKEntity] {
+    return entities.flatMap{ entity in
+      if let teamComponent = entity.componentForClass(TeamComponent.self) {
+        if teamComponent.team == team {
+          return entity
+        }
+      }
+      return nil
+    }
+  }
+  
+  func moveComponents(for team: Team) -> [MoveComponent] {
+    let entities = self.entities(for: team)
+    var moveComponents = [MoveComponent]()
+    for entity in entities {
+      if let moveComponent = entity.componentForClass(MoveComponent.self) {
+        moveComponents.append(moveComponent)
+      }
+    }
+    return moveComponents
   }
   
   

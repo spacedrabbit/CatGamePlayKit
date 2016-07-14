@@ -113,12 +113,12 @@ class GameScene: SKScene {
   
   // MARK: - Button Closures
   func quirkPressed() {
-    print("Quirk pressed!")
     entityManager.spawnQuirk(team: .Team1)
   }
   
   func zapPressed() {
     print("Zap pressed!")
+    entityManager.spawnZap(team: .Team1)
   }
   
   func munchPressed() {

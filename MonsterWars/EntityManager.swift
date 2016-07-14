@@ -66,9 +66,26 @@ class EntityManager {
   
   
   // MARK: - Spawn
+  func spawn(monster: Monster, team: Team) {
+    guard let
+      teamEntity = castle(for: team),
+      teamCastleComponent = teamEntity.componentForClass(CastleComponent.self),
+      teamSpriteComponent = teamEntity.componentForClass(SpriteComponent.self)
+    else { return }
+
+    let coinCost = Monster.costForMonster(monster: monster)
+    if teamCastleComponent.coins < coinCost { return }
+    teamCastleComponent.coins -= coinCost
+    scene.run(SoundManager.sharedInstance.soundSpawn)
+    
+    
+  }
+  
+  
   func spawnQuirk(team: Team) {
 
-    guard let teamEntity = castle(for: team),
+    guard let
+      teamEntity = castle(for: team),
       teamCastleComponent = teamEntity.componentForClass(CastleComponent.self),
       teamSpriteComponent = teamEntity.componentForClass(SpriteComponent.self) else {
         return
@@ -81,6 +98,27 @@ class EntityManager {
     let monster = Quirk(team: team, entityManager: self)
     if let spriteComponent = monster.componentForClass(SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: teamSpriteComponent.node.position.x, y: CGFloat.random(min: scene.size.height * 0.25, max: scene.size.height * 0.75))
+      spriteComponent.node.zPosition = 2
+    }
+    
+    self.add(entity: monster)
+  }
+  
+  func spawnZap(team: Team) {
+    guard let
+      teamEntity = castle(for: team),
+      teamCastleComponent = teamEntity.componentForClass(CastleComponent.self),
+      teamSpriteComponent = teamEntity.componentForClass(SpriteComponent.self)
+    else { return }
+    
+    if teamCastleComponent.coins < Cost.zap { return }
+    teamCastleComponent.coins -= Cost.zap
+    scene.run(SoundManager.sharedInstance.soundSpawn)
+    
+    let monster = Zap(team: team, entityManager: self)
+    if let spriteComponent = monster.componentForClass(SpriteComponent.self) {
+      spriteComponent.node.position =
+        CGPoint(x: teamSpriteComponent.node.position.x, y: CGFloat.random(min: scene.size.height * 0.25, max: scene.size.height * 0.75))
       spriteComponent.node.zPosition = 2
     }
     

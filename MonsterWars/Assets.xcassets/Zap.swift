@@ -10,7 +10,9 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-internal class Zap: GKEntity {
+internal class Zap: GKEntity, Spawn {
+  typealias MonsterType = Zap
+  static var spawnCost: Int = 25
   
   init(team: Team, entityManager: EntityManager) {
     super.init()
@@ -21,10 +23,11 @@ internal class Zap: GKEntity {
     addComponent(MoveComponent(maxSpeed: 100, maxAcceleration: 10, radius: Float(zapSprite.size().width * 0.3), entityManager: entityManager))
   }
   
+  static func spawn(team: Team, entityManager: EntityManager) -> MonsterType {
+    return Zap(team: team, entityManager: entityManager)
+  }
+  
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) not implemented")
   }
-  
-  
-  
 }

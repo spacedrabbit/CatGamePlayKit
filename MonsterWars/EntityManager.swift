@@ -21,11 +21,11 @@ class EntityManager {
     let moveSystem = GKComponentSystem(componentClass: MoveComponent.self)
     return [castleSystem, moveSystem]
   }()
-
+  
   init(scene: SKScene) {
     self.scene = scene
   }
-
+  
   
   // MARK: - Entity Management
   func add(entity: GKEntity) {
@@ -65,64 +65,25 @@ class EntityManager {
   }
   
   
-  // MARK: - Spawn
-  func spawn(monster: Monster, team: Team) {
-    guard let
-      teamEntity = castle(for: team),
-      teamCastleComponent = teamEntity.componentForClass(CastleComponent.self),
-      teamSpriteComponent = teamEntity.componentForClass(SpriteComponent.self)
+  // MARK: - Spawn Generically
+  func spawn<T: GKEntity where T: Spawn>(monster: T.Type, team: Team) {
+    guard
+      let teamEntity = castle(for: team),
+      let teamCastleComponent = teamEntity.componentForClass(CastleComponent.self),
+      let teamSpriteComponent = teamEntity.componentForClass(SpriteComponent.self)
     else { return }
-
-    let coinCost = Monster.costForMonster(monster: monster)
-    if teamCastleComponent.coins < coinCost { return }
-    teamCastleComponent.coins -= coinCost
+    
+    if teamCastleComponent.coins < monster.spawnCost { return }
+    teamCastleComponent.coins -= monster.spawnCost
     scene.run(SoundManager.sharedInstance.soundSpawn)
     
-    
-  }
-  
-  
-  func spawnQuirk(team: Team) {
-
-    guard let
-      teamEntity = castle(for: team),
-      teamCastleComponent = teamEntity.componentForClass(CastleComponent.self),
-      teamSpriteComponent = teamEntity.componentForClass(SpriteComponent.self) else {
-        return
-    }
-    
-    if teamCastleComponent.coins < Cost.quirk { return }
-    teamCastleComponent.coins -= Cost.quirk
-    scene.run(SoundManager.sharedInstance.soundSpawn)
-    
-    let monster = Quirk(team: team, entityManager: self)
-    if let spriteComponent = monster.componentForClass(SpriteComponent.self) {
+    let newMonster = monster.spawn(team: team, entityManager: self)
+    if let spriteComponent = newMonster.componentForClass(SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: teamSpriteComponent.node.position.x, y: CGFloat.random(min: scene.size.height * 0.25, max: scene.size.height * 0.75))
       spriteComponent.node.zPosition = 2
     }
     
-    self.add(entity: monster)
-  }
-  
-  func spawnZap(team: Team) {
-    guard let
-      teamEntity = castle(for: team),
-      teamCastleComponent = teamEntity.componentForClass(CastleComponent.self),
-      teamSpriteComponent = teamEntity.componentForClass(SpriteComponent.self)
-    else { return }
-    
-    if teamCastleComponent.coins < Cost.zap { return }
-    teamCastleComponent.coins -= Cost.zap
-    scene.run(SoundManager.sharedInstance.soundSpawn)
-    
-    let monster = Zap(team: team, entityManager: self)
-    if let spriteComponent = monster.componentForClass(SpriteComponent.self) {
-      spriteComponent.node.position =
-        CGPoint(x: teamSpriteComponent.node.position.x, y: CGFloat.random(min: scene.size.height * 0.25, max: scene.size.height * 0.75))
-      spriteComponent.node.zPosition = 2
-    }
-    
-    self.add(entity: monster)
+    self.add(entity: newMonster)
   }
   
   
@@ -153,8 +114,9 @@ class EntityManager {
   // MARK: - Helpers
   func castle(for team: Team) -> GKEntity? {
     for entity in entities {
-      if let teamComponent = entity.componentForClass(TeamComponent.self),
-        _ = entity.componentForClass(CastleComponent.self) {
+      if
+        let teamComponent = entity.componentForClass(TeamComponent.self),
+        let _ = entity.componentForClass(CastleComponent.self) {
         if teamComponent.team == team {
           return entity
         }

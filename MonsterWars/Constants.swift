@@ -14,12 +14,12 @@ internal struct Cost {
   static let munch = 50
 }
 
-internal enum Monster {
+internal enum MonsterType {
   case quirk
   case zap
   case munch
   
-  static func costForMonster(monster: Monster) -> Int {
+  static func costForMonster(monster: MonsterType) -> Int {
     switch monster {
     case .quirk: return Cost.quirk
     case .zap: return Cost.zap

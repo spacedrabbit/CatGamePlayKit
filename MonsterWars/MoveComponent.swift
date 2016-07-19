@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class MoveComponent : GKAgent2D, GKAgentDelegate {
+class MoveComponent: GKAgent2D, GKAgentDelegate {
   let entityManager: EntityManager
   
   init(maxSpeed: Float, maxAcceleration: Float, radius: Float, entityManager: EntityManager) {

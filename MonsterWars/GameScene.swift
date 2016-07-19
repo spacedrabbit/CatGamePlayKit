@@ -113,16 +113,15 @@ class GameScene: SKScene {
   
   // MARK: - Button Closures
   func quirkPressed() {
-    entityManager.spawnQuirk(team: .Team1)
+    entityManager.spawn(monster: Quirk.self, team: .Team1)
   }
   
   func zapPressed() {
-    print("Zap pressed!")
-    entityManager.spawnZap(team: .Team1)
+    entityManager.spawn(monster: Zap.self, team: .Team1)
   }
   
   func munchPressed() {
-    print("Munch pressed!")
+    entityManager.spawn(monster: Munch.self, team: .Team1)
   }
   
   
@@ -179,12 +178,12 @@ class GameScene: SKScene {
     entityManager.update(deltaTime: deltaTime)
     
     if let human = entityManager.castle(for: .Team1),
-      humanCastle = human.componentForClass(CastleComponent.self) {
+      let humanCastle = human.componentForClass(CastleComponent.self) {
       coin1Label.text = "\(humanCastle.coins)"
     }
     
     if let ai = entityManager.castle(for: .Team2),
-      aiCastle = ai.componentForClass(CastleComponent.self) {
+      let aiCastle = ai.componentForClass(CastleComponent.self) {
       coin2Label.text = "\(aiCastle.coins)"
     }
   }

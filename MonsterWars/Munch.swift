@@ -10,7 +10,9 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-internal class Munch: GKEntity {
+internal class Munch: GKEntity, Spawn {
+  typealias MonsterType = Munch
+  static var spawnCost: Int = 50
   
   init(team: Team, entityManager: EntityManager) {
     super.init()
@@ -21,6 +23,10 @@ internal class Munch: GKEntity {
     addComponent(SpriteComponent(texture: spriteTexture))
     addComponent(TeamComponent(team: team))
     addComponent(MoveComponent(maxSpeed: 75, maxAcceleration: 8, radius: Float(spriteTexture.size().width * 0.3), entityManager: entityManager))
+  }
+  
+  static func spawn(team: Team, entityManager: EntityManager) -> MonsterType {
+    return Munch(team: team, entityManager: entityManager)
   }
   
   required init?(coder aDecoder: NSCoder) {

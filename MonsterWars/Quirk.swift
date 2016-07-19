@@ -11,7 +11,13 @@ import SpriteKit
 import GameplayKit
 
 internal protocol Spawn: class {
+  // associatedtype allows for classes implementing this protocol to define the type it will be using. 
+  // This is necessary in the case where a protocol's implementation is intends on using its
+  // conforming class's type as either a parameter type or return type. 
+  // In this case, the associatedtype "MonsterType" is returned on spawn(team:entityManager:)
   associatedtype MonsterType: GKEntity
+  
+  // these are made to be static as they are intended to be used on class types, not an instance of one
   static var spawnCost: Int { get }
   static func spawn(team: Team, entityManager: EntityManager) -> MonsterType
 }
@@ -22,6 +28,7 @@ internal class Quirk: GKEntity, Spawn {
   
   internal required init(team: Team, entityManager: EntityManager) {
     super.init()
+    
     let texture = SKTexture(imageNamed: "quirk\(team.rawValue)")
     addComponent(SpriteComponent(texture: texture))
     addComponent(TeamComponent(team: team))

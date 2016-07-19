@@ -66,6 +66,24 @@ class EntityManager {
   
   
   // MARK: - Spawn Generically
+  /*
+   Problem: Previously, there were separate "spawn" methods for each monster type (Quirk, Zap, Munch) that each performed 
+    the same code except for one statement: the instantiation of the particular monster class:
+      -> Quirk(team:entityManager:)
+      -> Zap(team:entityManager:)
+      -> Munch(team:entityManager:)
+   
+   Goal: Consolidate code using a protocol-based approach
+   Solution: The following implementation of EntityManger.spawn(monster:team:) accomplishes the stated goal.
+   
+   Explanation:
+    - spawn<T: GKEntity where T: Spawn> specifies that in addition to being of type GKEntity, T will also conform
+      to the Spawn protocol. This is specifically needed to be able to call the Spawn.Protocol-specific function, 
+      spawn(team:entityManager)
+    - monster: T.Type specifies to use our generic's Type as the accepted parameter type
+    - .spawnCost and .spawn(team:entityManager:) are both statically defined in the Spawn protocol, allowing them to be called
+      without the need of an instance of our T class.
+  */
   func spawn<T: GKEntity where T: Spawn>(monster: T.Type, team: Team) {
     guard
       let teamEntity = castle(for: team),
@@ -114,9 +132,8 @@ class EntityManager {
   // MARK: - Helpers
   func castle(for team: Team) -> GKEntity? {
     for entity in entities {
-      if
-        let teamComponent = entity.componentForClass(TeamComponent.self),
-        let _ = entity.componentForClass(CastleComponent.self) {
+      if let teamComponent = entity.componentForClass(TeamComponent.self),
+       let _ = entity.componentForClass(CastleComponent.self) {
         if teamComponent.team == team {
           return entity
         }

@@ -10,7 +10,9 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class Castle: GKEntity {
+class Castle: GKEntity, Spawn {
+  typealias MonsterType = Castle
+  static var spawnCost: Int = 0
   
   init(imageName: String, team: Team, entityManager: EntityManager) {
     super.init()
@@ -19,6 +21,16 @@ class Castle: GKEntity {
     addComponent(TeamComponent(team: team))
     addComponent(CastleComponent())
     addComponent(MoveComponent(maxSpeed: 0, maxAcceleration: 0, radius: Float(spriteComponent.node.size.width / 2), entityManager: entityManager))
+  }
+  
+  static func spawn(team: Team, entityManager: EntityManager) -> MonsterType {
+    var castleImageName: String
+    switch team {
+    case .Team1: castleImageName = "castle1_atk"
+    case .Team2: castleImageName = "castle2_atk"
+    }
+    
+    return Castle(imageName: castleImageName, team: team, entityManager: entityManager)
   }
   
   required init?(coder aDecoder: NSCoder) {

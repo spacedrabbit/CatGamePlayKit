@@ -127,11 +127,11 @@ class GameScene: SKScene {
   
   // MARK: - Touches Override
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    guard let touch = touches.first else {
+    guard let _ = touches.first else {
       return
     }
-    let touchLocation = touch.location(in: self)
-    print("\(touchLocation)")
+//    let touchLocation = touch.location(in: self)
+//    print("\(touchLocation)")
     
     if gameOver {
       let newScene = GameScene(size: size)

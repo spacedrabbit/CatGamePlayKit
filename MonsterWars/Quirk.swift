@@ -10,13 +10,15 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
+/** 
+ `associatedtype` allows for classes implementing this protocol to define the type it will be using.
+ This is necessary in the case where a protocol's implementation intends on using its
+ conforming class's .Type as either a parameter type or return value.
+ In this case, the `associatedtype`, `MonsterType` is returned on `spawn(team:entityManager:)`. I also
+ ensure that this `associatedtype` is of type `GKEntity` or a subclass
+*/
 internal protocol Spawn: class {
-  // associatedtype allows for classes implementing this protocol to define the type it will be using. 
-  // This is necessary in the case where a protocol's implementation is intends on using its
-  // conforming class's type as either a parameter type or return type. 
-  // In this case, the associatedtype "MonsterType" is returned on spawn(team:entityManager:)
   associatedtype MonsterType: GKEntity
-  
   // these are made to be static as they are intended to be used on class types, not an instance of one
   static var spawnCost: Int { get }
   static func spawn(team: Team, entityManager: EntityManager) -> MonsterType

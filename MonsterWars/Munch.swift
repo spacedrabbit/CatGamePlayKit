@@ -17,7 +17,7 @@ internal class Munch: GKEntity, Spawn {
   init(team: Team, entityManager: EntityManager) {
     super.init()
     
-    let spriteTextureName: String = team == .Team1 ? "munch1" : "munch2"
+    let spriteTextureName: String = team == .team1 ? "munch1" : "munch2"
     let spriteTexture: SKTexture = SKTexture(imageNamed: spriteTextureName)
     
     addComponent(SpriteComponent(texture: spriteTexture))
@@ -25,7 +25,7 @@ internal class Munch: GKEntity, Spawn {
     addComponent(MoveComponent(maxSpeed: 75, maxAcceleration: 8, radius: Float(spriteTexture.size().width * 0.3), entityManager: entityManager))
   }
   
-  static func spawn(team: Team, entityManager: EntityManager) -> MonsterType {
+  static func spawn(_ team: Team, entityManager: EntityManager) -> MonsterType {
     return Munch(team: team, entityManager: entityManager)
   }
   

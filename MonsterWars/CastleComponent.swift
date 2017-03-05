@@ -22,8 +22,8 @@ class CastleComponent: GKComponent {
     fatalError("init(coder:) not implemented")
   }
   
-  override func update(withDeltaTime seconds: TimeInterval) {
-    super.update(withDeltaTime: seconds)
+  override func update(deltaTime seconds: TimeInterval) {
+    super.update(deltaTime: seconds)
     let coinDropInterval = TimeInterval(0.5)
     let coinsPerInterval = 10
     if (CACurrentMediaTime() - lastCoinDrop > coinDropInterval) {

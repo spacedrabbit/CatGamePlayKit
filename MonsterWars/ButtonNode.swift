@@ -13,12 +13,12 @@ class ButtonNode : SKSpriteNode {
 
   let onButtonPress: () -> ()
   
-  init(iconName: String, text: String, onButtonPress: () -> ()) {
+  init(iconName: String, text: String, onButtonPress: @escaping () -> ()) {
    
     self.onButtonPress = onButtonPress
    
     let texture = SKTexture(imageNamed: "button")
-    super.init(texture: texture, color: SKColor.white(), size: texture.size())
+    super.init(texture: texture, color: SKColor.white, size: texture.size())
     
     let icon = SKSpriteNode(imageNamed: iconName)
     icon.position = CGPoint(x: -size.width * 0.25, y: 0)
@@ -27,7 +27,7 @@ class ButtonNode : SKSpriteNode {
     
     let label = SKLabelNode(fontNamed: "Courier-Bold")
     label.fontSize = 50
-    label.fontColor = SKColor.black()
+    label.fontColor = SKColor.black
     label.position = CGPoint(x: size.width * 0.25, y: 0)
     label.zPosition = 1
     label.verticalAlignmentMode = .center

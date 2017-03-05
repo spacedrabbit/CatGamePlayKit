@@ -21,7 +21,7 @@ internal protocol Spawn: class {
   associatedtype MonsterType: GKEntity
   // these are made to be static as they are intended to be used on class types, not an instance of one
   static var spawnCost: Int { get }
-  static func spawn(team: Team, entityManager: EntityManager) -> MonsterType
+  static func spawn(_ team: Team, entityManager: EntityManager) -> MonsterType
 }
 
 internal class Quirk: GKEntity, Spawn {
@@ -37,7 +37,7 @@ internal class Quirk: GKEntity, Spawn {
     addComponent(MoveComponent(maxSpeed: 150, maxAcceleration: 5, radius: Float(texture.size().width * 0.3), entityManager: entityManager))
   }
   
-  static func spawn(team: Team, entityManager: EntityManager) -> MonsterType {
+  static func spawn(_ team: Team, entityManager: EntityManager) -> MonsterType {
     return Quirk(team: team, entityManager: entityManager)
   }
   

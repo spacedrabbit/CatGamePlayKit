@@ -23,11 +23,11 @@ class Castle: GKEntity, Spawn {
     addComponent(MoveComponent(maxSpeed: 0, maxAcceleration: 0, radius: Float(spriteComponent.node.size.width / 2), entityManager: entityManager))
   }
   
-  static func spawn(team: Team, entityManager: EntityManager) -> MonsterType {
+  static func spawn(_ team: Team, entityManager: EntityManager) -> MonsterType {
     var castleImageName: String
     switch team {
-    case .Team1: castleImageName = "castle1_atk"
-    case .Team2: castleImageName = "castle2_atk"
+    case .team1: castleImageName = "castle1_atk"
+    case .team2: castleImageName = "castle2_atk"
     }
     
     return Castle(imageName: castleImageName, team: team, entityManager: entityManager)

@@ -72,7 +72,7 @@ class GameScene: SKScene {
     coin1.position = CGPoint(x: margin + coin1.size.width/2, y: size.height - margin - coin1.size.height/2)
     addChild(coin1)
     coin1Label.fontSize = 50
-    coin1Label.fontColor = SKColor.black()
+    coin1Label.fontColor = SKColor.black
     coin1Label.position = CGPoint(x: coin1.position.x + coin1.size.width/2 + margin, y: coin1.position.y)
     coin1Label.zPosition = 1
     coin1Label.horizontalAlignmentMode = .left
@@ -85,7 +85,7 @@ class GameScene: SKScene {
     coin2.position = CGPoint(x: size.width - margin - coin1.size.width/2, y: size.height - margin - coin1.size.height/2)
     addChild(coin2)
     coin2Label.fontSize = 50
-    coin2Label.fontColor = SKColor.black()
+    coin2Label.fontColor = SKColor.black
     coin2Label.position = CGPoint(x: coin2.position.x - coin2.size.width/2 - margin, y: coin1.position.y)
     coin2Label.zPosition = 1
     coin2Label.horizontalAlignmentMode = .right
@@ -97,31 +97,31 @@ class GameScene: SKScene {
   
   // MARK: - Entity Management
   func addCastleEntities(to manager: EntityManager) {
-    let humanCastle: Castle = Castle(imageName: "castle1_atk", team: .Team1, entityManager: entityManager)
-    if let spriteComponent: SpriteComponent = humanCastle.componentForClass(SpriteComponent.self) {
+    let humanCastle: Castle = Castle(imageName: "castle1_atk", team: .team1, entityManager: entityManager)
+    if let spriteComponent: SpriteComponent = humanCastle.component(ofType: SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: spriteComponent.node.size.width/2, y: size.height/2)
     }
-    manager.add(entity: humanCastle)
+    manager.add(humanCastle)
     
-    let aiCastle: Castle = Castle(imageName: "castle2_atk", team: .Team2, entityManager: entityManager)
-    if let spriteComponent: SpriteComponent = aiCastle.componentForClass(SpriteComponent.self) {
+    let aiCastle: Castle = Castle(imageName: "castle2_atk", team: .team2, entityManager: entityManager)
+    if let spriteComponent: SpriteComponent = aiCastle.component(ofType: SpriteComponent.self) {
       spriteComponent.node.position = CGPoint(x: size.width - spriteComponent.node.size.width/2, y: size.height/2)
     }
-    manager.add(entity: aiCastle)
+    manager.add(aiCastle)
   }
   
   
   // MARK: - Button Closures
   func quirkPressed() {
-    entityManager.spawn(monster: Quirk.self, team: .Team1)
+    entityManager.spawn(Quirk.self, team: .team1)
   }
   
   func zapPressed() {
-    entityManager.spawn(monster: Zap.self, team: .Team1)
+    entityManager.spawn(Zap.self, team: .team1)
   }
   
   func munchPressed() {
-    entityManager.spawn(monster: Munch.self, team: .Team1)
+    entityManager.spawn(Munch.self, team: .team1)
   }
   
   
@@ -153,7 +153,7 @@ class GameScene: SKScene {
     
     let label = SKLabelNode(fontNamed: "Courier-Bold")
     label.fontSize = 100
-    label.fontColor = SKColor.black()
+    label.fontColor = SKColor.black
     label.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
     label.zPosition = 1
     label.verticalAlignmentMode = .center
@@ -175,15 +175,15 @@ class GameScene: SKScene {
     
     if gameOver { return }
    
-    entityManager.update(deltaTime: deltaTime)
+    entityManager.update(deltaTime)
     
-    if let human = entityManager.castle(for: .Team1),
-      let humanCastle = human.componentForClass(CastleComponent.self) {
+    if let human = entityManager.castle(for: .team1),
+      let humanCastle = human.component(ofType: CastleComponent.self) {
       coin1Label.text = "\(humanCastle.coins)"
     }
     
-    if let ai = entityManager.castle(for: .Team2),
-      let aiCastle = ai.componentForClass(CastleComponent.self) {
+    if let ai = entityManager.castle(for: .team2),
+      let aiCastle = ai.component(ofType: CastleComponent.self) {
       coin2Label.text = "\(aiCastle.coins)"
     }
   }

@@ -19,7 +19,7 @@ internal enum MonsterType {
   case zap
   case munch
   
-  static func costForMonster(monster: MonsterType) -> Int {
+  static func costForMonster(_ monster: MonsterType) -> Int {
     switch monster {
     case .quirk: return Cost.quirk
     case .zap: return Cost.zap

@@ -28,20 +28,20 @@ class EntityManager {
   
   
   // MARK: - Entity Management
-  func add(entity: GKEntity) {
+  func add(_ entity: GKEntity) {
     entities.insert(entity)
     
-    if let spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
+    if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
       scene.addChild(spriteNode)
     }
     
     for componentSystem in self.componentSystems {
-      componentSystem.addComponent(with: entity)
+      componentSystem.addComponent(foundIn: entity)
     }
   }
   
-  func remove(entity: GKEntity) {
-    if let spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
+  func remove(_ entity: GKEntity) {
+    if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
       spriteNode.removeFromParent()
     }
     
@@ -51,14 +51,15 @@ class EntityManager {
   
   
   // MARK: - Update
-  func update(deltaTime: CFTimeInterval) {
+  // ----------------
+  func update(_ deltaTime: CFTimeInterval) {
     for componentSystem in componentSystems {
-      componentSystem.update(withDeltaTime: deltaTime)
+      componentSystem.update(deltaTime: deltaTime)
     }
     
     for curRemove in toRemove {
       for componentSystem in componentSystems {
-        componentSystem.removeComponent(with: curRemove)
+        componentSystem.removeComponent(foundIn: curRemove)
       }
     }
     toRemove.removeAll()
@@ -79,36 +80,37 @@ class EntityManager {
    Explanation:
     - spawn<T: GKEntity where T: Spawn> specifies that in addition to being of type GKEntity, T will also conform
       to the Spawn protocol. This is specifically needed to be able to call the Spawn.Protocol-specific function, 
-      spawn(team:entityManager)
+      spawn(team:entityManager). (8/10 note: I believe it is necessary to write it out like this instead of just
+      <T: Spawn> since it exposes that the MonsterType is a GKEntity.)
     - monster: T.Type specifies to use our generic's Type as the accepted parameter type
     - .spawnCost and .spawn(team:entityManager:) are both statically defined in the Spawn protocol, allowing them to be called
       without the need of an instance of our T class.
   */
-  func spawn<T: GKEntity where T: Spawn>(monster: T.Type, team: Team) {
+  func spawn<T: Spawn>(_ monster: T.Type, team: Team) {
     guard
       let teamEntity = castle(for: team),
-      let teamCastleComponent = teamEntity.componentForClass(CastleComponent.self),
-      let teamSpriteComponent = teamEntity.componentForClass(SpriteComponent.self)
+      let teamCastleComponent = teamEntity.component(ofType: CastleComponent.self),
+      let teamSpriteComponent = teamEntity.component(ofType: SpriteComponent.self)
     else { return }
     
     if teamCastleComponent.coins < monster.spawnCost { return }
     teamCastleComponent.coins -= monster.spawnCost
     scene.run(SoundManager.sharedInstance.soundSpawn)
     
-    let newMonster = monster.spawn(team: team, entityManager: self)
-    if let spriteComponent = newMonster.componentForClass(SpriteComponent.self) {
-      spriteComponent.node.position = CGPoint(x: teamSpriteComponent.node.position.x, y: CGFloat.random(min: scene.size.height * 0.25, max: scene.size.height * 0.75))
+    let newMonster = monster.spawn(team, entityManager: self)
+    if let spriteComponent = newMonster.component(ofType: SpriteComponent.self) {
+      spriteComponent.node.position = CGPoint(x: teamSpriteComponent.node.position.x, y: CGFloat.random(scene.size.height * 0.25, max: scene.size.height * 0.75))
       spriteComponent.node.zPosition = 2
     }
     
-    self.add(entity: newMonster)
+    self.add(newMonster)
   }
   
   
   // MARK: - Entity Locating Helpers
   func entities(for team: Team) -> [GKEntity] {
     return entities.flatMap{ entity in
-      if let teamComponent = entity.componentForClass(TeamComponent.self) {
+      if let teamComponent = entity.component(ofType: TeamComponent.self) {
         if teamComponent.team == team {
           return entity
         }
@@ -121,7 +123,7 @@ class EntityManager {
     let entities = self.entities(for: team)
     var moveComponents = [MoveComponent]()
     for entity in entities {
-      if let moveComponent = entity.componentForClass(MoveComponent.self) {
+      if let moveComponent = entity.component(ofType: MoveComponent.self) {
         moveComponents.append(moveComponent)
       }
     }
@@ -132,8 +134,8 @@ class EntityManager {
   // MARK: - Helpers
   func castle(for team: Team) -> GKEntity? {
     for entity in entities {
-      if let teamComponent = entity.componentForClass(TeamComponent.self),
-       let _ = entity.componentForClass(CastleComponent.self) {
+      if let teamComponent = entity.component(ofType: TeamComponent.self),
+       let _ = entity.component(ofType: CastleComponent.self) {
         if teamComponent.team == team {
           return entity
         }

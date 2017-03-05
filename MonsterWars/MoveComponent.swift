@@ -48,12 +48,12 @@ class MoveComponent: GKAgent2D, GKAgentDelegate {
   
 
   // MARK: Update Override
-  override func update(withDeltaTime: TimeInterval) {
-    super.update(withDeltaTime: withDeltaTime)
+  override func update(deltaTime withDeltaTime: TimeInterval) {
+    super.update(deltaTime: withDeltaTime)
     
     guard
       let entity = entity,
-      let teamComponent = entity.componentForClass(TeamComponent.self)
+      let teamComponent = entity.component(ofType: TeamComponent.self)
     else { return }
     
     guard
@@ -66,7 +66,7 @@ class MoveComponent: GKAgent2D, GKAgentDelegate {
   
   // MARK: - GKAgentDelegate
   @objc func agentWillUpdate(_ agent: GKAgent) {
-    guard let spriteComponent = entity?.componentForClass(SpriteComponent.self) else {
+    guard let spriteComponent = entity?.component(ofType: SpriteComponent.self) else {
       return
     }
     
@@ -75,7 +75,7 @@ class MoveComponent: GKAgent2D, GKAgentDelegate {
   }
   
   @objc func agentDidUpdate(_ agent: GKAgent) {
-    guard let spriteComponent = entity?.componentForClass(SpriteComponent.self) else {
+    guard let spriteComponent = entity?.component(ofType: SpriteComponent.self) else {
       return
     }
     

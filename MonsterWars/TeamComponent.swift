@@ -11,17 +11,17 @@ import SpriteKit
 import GameplayKit
 
 enum Team: Int {
-  case Team1 = 1
-  case Team2 = 2
+  case team1 = 1
+  case team2 = 2
   
-  static let allValues = [Team1, Team2]
+  static let allValues = [team1, team2]
   
   func oppositeTeam() -> Team {
     switch self {
-    case .Team1:
-      return .Team2
-    case .Team2:
-      return .Team1
+    case .team1:
+      return .team2
+    case .team2:
+      return .team1
     }
   }
 }
